@@ -2,22 +2,26 @@
 	(X) Date
 	() Other...
 
-[ ] Multiple Representations
+[X] Multiple Representations
 	(X) Agency Name
 	(X) Agency ID
+	(X) Project Description
 
 [X] Summation Records
 	(X) Removed totals
 
-[ ] Duplicate Record Detection
+[X] Duplicate Record Detection
 	(X) Duplicate Project ID records
 
-[ ] Mixed use of numerical scales
-	( ) Life cyle cost
+[X] Mixed use of numerical scales
+	(X) Life cyle cost
 
-[ ] Redundant Data
+[X] Redundant Data
 	(X) Agency Data
 	(X) Investment Data
+
+[X] Unorganised Data
+	(X) Data shifted around
 	
 [ ] Numeric Ranges
 
