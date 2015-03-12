@@ -1,0 +1,20 @@
+[ ] Data Validation
+	() Date
+	() Other...
+
+[ ] Multiple Representations
+	(X) Agency Name
+	(X) Agency ID
+
+[X] Summation Records
+	(X) Removed totals
+
+[ ] Duplicate Record Detection
+
+[ ] Mixed use of numerical scales
+
+[ ] Redundant Data
+
+[ ] Numeric Ranges
+
+[ ] Spelling Errors
