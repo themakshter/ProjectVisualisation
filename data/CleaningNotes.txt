@@ -10,11 +10,13 @@
 	(X) Removed totals
 
 [ ] Duplicate Record Detection
+	(X) Duplicate Project ID records
 
 [ ] Mixed use of numerical scales
 
 [ ] Redundant Data
-
+	(X) Agency Data
+	(X) Investment Data
 [ ] Numeric Ranges
 
 [ ] Spelling Errors
