@@ -1,7 +1,10 @@
-[ ] Data Validation
-	(X) Date
-	() Other...
-
+[X] Date Validation
+	(X) Start Date
+	(X) Completion Date
+	(X)	Planned Completion Date
+	(X) Actual Completion Date
+	(X) Combined Updated Time
+	
 [X] Multiple Representations
 	(X) Agency Name
 	(X) Agency ID
@@ -23,6 +26,6 @@
 [X] Unorganised Data
 	(X) Data shifted around
 	
-[ ] Numeric Ranges
-
-[ ] Spelling Errors
+[X] Spelling Errors
+	(X) Agency
+	(X) Project Description
