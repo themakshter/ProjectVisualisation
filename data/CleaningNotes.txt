@@ -1,5 +1,5 @@
 [ ] Data Validation
-	() Date
+	(X) Date
 	() Other...
 
 [ ] Multiple Representations
@@ -13,10 +13,12 @@
 	(X) Duplicate Project ID records
 
 [ ] Mixed use of numerical scales
+	( ) Life cyle cost
 
 [ ] Redundant Data
 	(X) Agency Data
 	(X) Investment Data
+	
 [ ] Numeric Ranges
 
 [ ] Spelling Errors
