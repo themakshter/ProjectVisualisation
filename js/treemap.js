@@ -6,6 +6,8 @@ if (parent.document.getElementsByTagName("iframe")[0]) {
     parent.document.getElementsByTagName("iframe")[0].setAttribute('style', 'height: 700px !important');
 }
 
+var multiplier= 1000000;
+
 var margin = {
         top: 20,
         right: 0,
@@ -14,7 +16,7 @@ var margin = {
     },
     width = 820,
     height = 700 - margin.top - margin.bottom,
-    formatNumber = d3.format(".2s"),
+    formatNumber = d3.format(".3s"),
     transitioning;
 
 /* create x and y scales */

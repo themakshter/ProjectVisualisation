@@ -1,5 +1,4 @@
 function reSortRoot(root,value_key) {
-	//console.log("Calling");
 	for (var key in root) {
 		if (key == "key") {
 			root.name = root.key;
