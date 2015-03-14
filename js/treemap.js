@@ -1,10 +1,3 @@
-/*  
- * If running inside bl.ocks.org we want to resize the iframe to fit both graphs 
- * This bit of code was shared originally at https://gist.github.com/benjchristensen/2657838 
- */
-if (parent.document.getElementsByTagName("iframe")[0]) {
-    parent.document.getElementsByTagName("iframe")[0].setAttribute('style', 'height: 700px !important');
-}
 
 var multiplier = 1000000;
 
@@ -14,7 +7,7 @@ var margin = {
         bottom: 0,
         left: 0
     },
-    width = 820,
+    width = 1000,
     height = 700 - margin.top - margin.bottom,
     formatNumber = d3.format(".3s"),
     transitioning;
@@ -159,7 +152,7 @@ function display(d) {
                     return d.name + " (" + formatNumber(d.size) + ")";
                 }
                 if (d.value > 0 && typeof(d.value) !== "undefined") {
-                    return d.name + " (" + formatNumber(d.value) + ")";
+                    return d.name + " (" + formatNumber(d.value * multiplier) + ")";
                 }
                 return d.name;
             })
