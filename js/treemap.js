@@ -6,7 +6,7 @@ if (parent.document.getElementsByTagName("iframe")[0]) {
     parent.document.getElementsByTagName("iframe")[0].setAttribute('style', 'height: 700px !important');
 }
 
-var multiplier= 1000000;
+var multiplier = 1000000;
 
 var margin = {
         top: 20,
