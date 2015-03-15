@@ -7,7 +7,7 @@ var margin = {
         bottom: 0,
         left: 0
     },
-    width = 1000,
+    width = 820,
     height = 700 - margin.top - margin.bottom,
     formatNumber = d3.format(".3s"),
     transitioning;
