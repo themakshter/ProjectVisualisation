@@ -1,6 +1,6 @@
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 600 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
     .range([0, width]);
@@ -37,7 +37,7 @@ d3.csv("data/ProjectsCW1.csv", function(data) {
     d3.min(d3.extent(data, function(d) { return d.Start_Date; })),
     d3.max(d3.extent(data, function(d) { return d.Completion_Date; }))
   ]);
-  
+
   y.domain([
     d3.min(d3.extent(data, function(d) { return d.Projected_Actual_Cost_M; })),
     d3.max(d3.extent(data, function(d) { return d.Projected_Actual_Cost_M; }))
