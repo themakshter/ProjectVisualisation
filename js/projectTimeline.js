@@ -33,7 +33,10 @@ d3.csv("data/ProjectsCW1.csv", function(data) {
   
 
   // Compute the scales’ domains.
-  x.domain(d3.extent(data, function(d) { return d.Completion_Date; }));
+  x.domain([
+    d3.min(d3.extent(data, function(d) { return d.Start_Date; })),
+    d3.max(d3.extent(data, function(d) { return d.Completion_Date; }))
+  ]);
   
   y.domain([
     d3.min(d3.extent(data, function(d) { return d.Projected_Actual_Cost_M; })),
