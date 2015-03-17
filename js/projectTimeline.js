@@ -56,10 +56,11 @@ d3.csv("data/ProjectsCW1.csv", function(data) {
       .data(data)
     .enter()
     .append("line")
-    .attr("x1", function(d){ return d.Start_Date;})
-    .attr("x2", function(d){ return d.Completion_Date;})
-    .attr("y1", function(d){ return d.Planned_Cost_M;})
-    .attr("y2", function(d){ return d.Projected_Actual_Cost_M;});
+    .attr("x1", function(d){ return x(d.Start_Date);})
+    .attr("x2", function(d){ return x(d.Completion_Date);})
+    .attr("y1", function(d){ return y(d.Planned_Cost_M);})
+    .attr("y2", function(d){ return y(d.Projected_Actual_Cost_M);})
+    .attr("stroke","black");
       //  .append("path")
       //  .attr("class", "point")
       // .attr("d", d3.svg.symbol().type("triangle-up"))
