@@ -2,7 +2,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var x = d3.scale.linear()
+var x = d3.time.scale()
     .range([0, width]);
 
 var y = d3.scale.linear()
@@ -16,17 +16,29 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("data/data.csv", function(data) {
+d3.csv("data/ProjectsCW1.csv", function(data) {
+
+
 
   // Coerce the strings to numbers.
   data.forEach(function(d) {
-    d.x = +d.x;
-    d.y = +d.y;
+    d.Start_Date = parseDate(d.Start_Date);
+    d.Completion_Date = parseDate(d.Completion_Date);
+    d.Projected_Actual_Project_Completion_Date = parseDate(d.Projected_Actual_Project_Completion_Date);
+    d.Planned_Cost_M = +d.Planned_Cost_M;
+    d.Projected_Actual_Cost_M = +d.Projected_Actual_Cost_M;
   });
 
+
+  
+
   // Compute the scales’ domains.
-  x.domain(d3.extent(data, function(d) { return d.x; })).nice();
-  y.domain(d3.extent(data, function(d) { return d.y; })).nice();
+  x.domain(d3.extent(data, function(d) { return d.Completion_Date; }));
+  
+  y.domain([
+    d3.min(d3.extent(data, function(d) { return d.Projected_Actual_Cost_M; })),
+    d3.max(d3.extent(data, function(d) { return d.Projected_Actual_Cost_M; }))
+  ]);
 
   // Add the x-axis.
   svg.append("g")
@@ -42,8 +54,14 @@ d3.csv("data/data.csv", function(data) {
   // Add the points!
   svg.selectAll(".point")
       .data(data)
-    .enter().append("path")
-      .attr("class", "point")
-      .attr("d", d3.svg.symbol().type("triangle-up"))
-      .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+    .enter()
+    .append("line")
+    .attr("x1", function(d){ return d.Start_Date;})
+    .attr("x2", function(d){ return d.Completion_Date;})
+    .attr("y1", function(d){ return d.Planned_Cost_M;})
+    .attr("y2", function(d){ return d.Projected_Actual_Cost_M;});
+      //  .append("path")
+      //  .attr("class", "point")
+      // .attr("d", d3.svg.symbol().type("triangle-up"))
+      // .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
 });
