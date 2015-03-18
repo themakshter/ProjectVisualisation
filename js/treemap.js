@@ -18,6 +18,7 @@ function reSortRoot(root,value_key) {
     }
     return root;
 }
+
 var color = d3.scale.category20();
 
 var multiplier = 1000000;
@@ -212,9 +213,10 @@ grandparent.append("text")
         .attr("y", function(d) { return y(d.y); })
         .attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
         .attr("height", function(d) { return y(d.y + d.dy) - y(d.y); })
-        .style("background", function(d) {
+        .style("fill", function(d,i) {
             return d.parent ? color(d.name) : null;
-        });
+        })
+        .style("fill-opacity",0.8);
   }
 
   function name(d) {
@@ -237,7 +239,8 @@ grandparent.append("text")
         })
         .attr("height", function(d) {
             return y(d.y + d.dy) - y(d.y);
-        });
+        })
+        ;
 }
 
 

@@ -51,6 +51,7 @@ fill: #aaa;
 .textdiv { /* text in the boxes */
 	padding: 5px;
 	cursor: pointer;
+	opacity: 1;
 }
 
 .foriegnobj{

@@ -7,7 +7,8 @@ $( document ).ready(function() {
 		var nested_data = d3.nest()
 			.key(function(d)  { return d.Agency_Name; })
 			.key(function(d)  { return d.Investment_Title; })
-			.key(function(d)  { return d.Project_Name })
+			.key(function(d)  { return d.Project_Name;})
+			.key(function(d)  {return d.Project_Description;})
 			.entries(csv_data);
 
 		// Creat the root node for the treemap
