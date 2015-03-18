@@ -136,8 +136,7 @@ grandparent.append("text")
         .attr("class", "parent")
         .call(rect)
       .append("title")
-        .text(function(d) { return d.name + " (" + formatNumber(Math.round(d.value)) + "M)"; })
-    ;
+        .text(function(d) { return d.name + " (" + formatNumber(Math.round(d.value)) + "M)"; });
 
 
 /* Adding a foreign object instead of a text object, allows for text wrapping */
@@ -157,7 +156,8 @@ grandparent.append("text")
                 }
                 return d.name;
             })
-            .attr("class", "textdiv"); //textdiv class allows us to style the text easily with CSS
+            .attr("class", "textdiv");
+             //textdiv class allows us to style the text easily with CSS
         /* create transition function for transitions */
     function transition(d) {
       if (transitioning || !d) return;
@@ -238,7 +238,6 @@ grandparent.append("text")
         .attr("height", function(d) {
             return y(d.y + d.dy) - y(d.y);
         });
-        
 }
 
 
