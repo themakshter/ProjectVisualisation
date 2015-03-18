@@ -23,7 +23,7 @@ $( document ).ready(function() {
 		// DEBUG
 		// $("#rawdata").html(JSON.stringify(root));
 
-		d3.json("flare.json",loadData(root));
+		loadData(root);
 	});
 
 });
