@@ -216,7 +216,7 @@ grandparent.append("text")
         .style("fill", function(d,i) {
             return d.parent ? color(d.name) : null;
         })
-        .style("fill-opacity",0.8);
+        .style("fill-opacity",0.875);
   }
 
   function name(d) {
