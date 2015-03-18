@@ -9,8 +9,16 @@ var margin = {
     },
     width = 820,
     height = 700 - margin.top - margin.bottom,
-    formatNumber = d3.format(".3s"),
+    formatNumber = d3.format("$,"),
     transitioning;
+
+    function formatPrefix(ticks) {
+  var prefix = d3.formatPrefix(ticks[1] - ticks[0]),
+      format = d3.format(".0f");
+  return function(d) {
+    return format(prefix.scale(d)) + prefix.symbol;
+  };
+}
 
 /* create x and y scales */
 var x = d3.scale.linear()
@@ -152,7 +160,7 @@ function display(d) {
                     return d.name + " (" + formatNumber(d.size) + ")";
                 }
                 if (d.value > 0 && typeof(d.value) !== "undefined") {
-                    return d.name + " (" + formatNumber(d.value * multiplier) + ")";
+                    return d.name + " (" + formatNumber(Math.round(d.value)) + "M)";
                 }
                 return d.name;
             })
