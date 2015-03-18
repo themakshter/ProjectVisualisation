@@ -217,12 +217,15 @@ grandparent.append("text")
   }
 
   function name(d) {
-    return d.parent
-        ? name(d.parent) + "." + d.name
-        : d.name;
+    if(d.parent){
+        return d.name + " (" + formatNumber(Math.round(d.value * multiplier)) +")";    
+    }else{
+        return "Agencies";
+    }
+    
   }
 
-  function foreign(foreign) { /* added */
+  function foreign(foreign) { 
     foreign.attr("x", function(d) {
             return x(d.x);
         })

@@ -47,10 +47,13 @@ rect.parent {
 fill: #aaa;
 	}
 
+
 .textdiv { /* text in the boxes */
 	padding: 5px;
-	 font-family: "Open Sans", Helvetica, Arial, sans-serif;
-	 opacity: 1; 
+	cursor: pointer;
+}
+
+.foriegnobj{
 }
 
 
