@@ -136,7 +136,7 @@ grandparent.append("text")
         .attr("class", "parent")
         .call(rect)
       .append("title")
-        .text(function(d) { return formatNumber(d.value); })
+        .text(function(d) { return d.name + " (" + formatNumber(Math.round(d.value)) + "M)"; })
     ;
 
 
@@ -223,7 +223,6 @@ grandparent.append("text")
     }else{
         return "Agencies";
     }
-    
   }
 
   function foreign(foreign) { 
@@ -241,21 +240,6 @@ grandparent.append("text")
         });
         
 }
-
-var mousemove = function(d) {
-  var xPosition = d3.event.pageX + 5;
-  var yPosition = d3.event.pageY + 5;
-
-  d3.select("#tooltip")
-    .style("left", xPosition + "px")
-    .style("top", yPosition + "px");
-    .text(function(d){return d.name + " (" + formatNumber(Math.round(d.value * multiplier)) +")";   })
-};
-
-var mouseout = function() {
-  d3.select("#tooltip").classed("hidden", true);
-};
-
 
 
 function loadData(root) {
