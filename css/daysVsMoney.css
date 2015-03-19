@@ -18,10 +18,8 @@ rect {
   stroke: #fff;
 }
 
-button {
-  position: absolute;
-  right: 30px;
-  top: 30px;
+.axis{
+   font-size: 25px;
 }
 
 #tooltip {
