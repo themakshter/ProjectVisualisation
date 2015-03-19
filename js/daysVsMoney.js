@@ -5,6 +5,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 var x,y,xAxis,yAxis,zoom,svg;
 var color = d3.scale.category20();
 var parseDate = d3.time.format.iso.parse;
+var cValue = function(d) { return d.Agency_Name;};
 
 var formatNumber = d3.format("$,");
 d3.csv("data/ProjectsCW1.csv", function(data) {
@@ -52,6 +53,8 @@ svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .call(zoom);
 
+
+
 svg.append("rect")
     .attr("width", width)
     .attr("height", height);
@@ -82,6 +85,28 @@ svg.append("g")
         .style("text-anchor","middle")
         .attr("transform","translate(" + 20 + " " + height/2+") rotate(-90)");
   
+// draw legend
+  var legend = svg.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  // draw legend colored rectangles
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  // draw legend text
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d;});
+
 
 redraw();
  
@@ -131,7 +156,7 @@ function point(point){
             return color(d.Agency_Name);
           })
           .attr("stroke-fill",function(d){
-            return color(d.Agency_Name);
+            return color(cValue(d));
           })
           .attr("fill-opacity",0.65)
           .on("click", mousemove)
