@@ -1,14 +1,25 @@
 body {
-  font: 10px sans-serif;
+  position: relative;
+  width: 960px;
 }
 
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
+svg {
+  font: 10px sans-serif;
   shape-rendering: crispEdges;
 }
 
-.point {
-  fill: steelblue;
-  stroke: #000;
+rect {
+  fill: #ddd;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #fff;
+}
+
+button {
+  position: absolute;
+  right: 30px;
+  top: 30px;
 }
