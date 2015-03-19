@@ -1,12 +1,12 @@
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 1400 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
 
 var x,y,xAxis,yAxis,zoom,svg;
 var color = d3.scale.category20();
 var parseDate = d3.time.format.iso.parse;
 var cValue = function(d) { return d.Agency_Name;};
-
+var legend;
 var formatNumber = d3.format("$,");
 d3.csv("data/ProjectsCW1.csv", function(data) {
   // Coerce the strings to numbers.
@@ -77,8 +77,7 @@ svg.append("g")
         .attr("dy","2.4em")
         .style("text-anchor","middle");
   
-
-  // add y-axis label
+ // add y-axis label
     svg.append("g").append("text")
         .attr("class", "axis")
         .text("Projected Cost ($M)")
@@ -86,9 +85,11 @@ svg.append("g")
         .attr("transform","translate(" + 20 + " " + height/2+") rotate(-90)");
   
 // draw legend
-  var legend = svg.selectAll(".legend")
+  legend = svg.append("g")
       .data(color.domain())
-    .enter().append("g")
+    .enter();
+
+  legend.append("g")
       .attr("class", "legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
@@ -107,7 +108,7 @@ svg.append("g")
       .style("text-anchor", "end")
       .text(function(d) { return d;});
 
-
+console.log(legend);
 redraw();
  
 
