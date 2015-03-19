@@ -252,13 +252,6 @@ grandparent.append("text")
 
 }
 
-function position() {
-  this.style("left", function(d) { return d.x + "px"; })
-      .style("top", function(d) { return d.y + "px"; })
-      .style("width", function(d) { return Math.max(0, d.dx - 2) + "px"; })
-      .style("height", function(d) { return Math.max(0, d.dy - 2) + "px"; });
-}
-
 var mousemove = function(d) {
   console.log("move");
   var xPosition = d3.event.pageX + 5;

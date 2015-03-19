@@ -1,11 +1,12 @@
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 1300 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
 
 var x,y,xAxis,yAxis,zoom,svg;
-
+var color = d3.scale.category20();
 var parseDate = d3.time.format.iso.parse;
 
+var formatNumber = d3.format("$,");
 d3.csv("data/ProjectsCW1.csv", function(data) {
   // Coerce the strings to numbers.
   data.forEach(function(d) {
@@ -14,15 +15,14 @@ d3.csv("data/ProjectsCW1.csv", function(data) {
     d.Projected_Actual_Project_Completion_Date = parseDate(d.Projected_Actual_Project_Completion_Date);
     d.Planned_Cost_M = +d.Planned_Cost_M;
     d.Projected_Actual_Cost_M = +d.Projected_Actual_Cost_M;
-    d.daysToComplete = (d.Completion_Date - d.Start_Date)/86400000;
+    d.daysToComplete = Math.abs((d.Completion_Date - d.Start_Date)/86400000);
   });
 
+
+
 x =  d3.scale.linear()
-    .domain([0,
-      d3.max(d3.extent(data,function(d){
-        return d.daysToComplete;
-      }))])
-    .range([0, width]);
+  .domain([0,
+    (d3.max(d3.extent(data, function(d) { return d.daysToComplete; })))]).range([0, width]);
 
 y = d3.scale.linear()
     .domain([0, d3.max(d3.extent(data, function(d) { return d.Planned_Cost_M; }))])
@@ -64,6 +64,23 @@ svg.append("g")
     .attr("class", "y axis")
     .call(yAxis);
 
+     // Add the x-axis label
+   svg.append("text")
+        .attr("class", "axis")
+        .text("Duration of Project (days)")
+        .attr("x", width/2)
+        .attr("y", height)
+        .attr("dy","2.4em")
+        .style("text-anchor","middle");
+  
+
+  // add y-axis label
+    svg.append("g").append("text")
+        .attr("class", "axis")
+        .text("Projected Cost ($M)")
+        .style("text-anchor","middle")
+        .attr("transform","translate(" + -40 + " " + height/2+") rotate(-90)");
+  
 d3.select("button").on("click", reset);
 
 redraw();
@@ -90,17 +107,36 @@ function reset() {
 function redraw(){
   svg.selectAll(".startPoint").remove();
   
-
-
   // Add the points!
   svg.selectAll(".point")
       .data(data)
     .enter()
     .append("circle")
-    .call(startPoint);
+    .call(point);
 }
 
 });
+
+
+function point(point){
+  point.attr("class","startPoint")
+          .attr("cx",function(d){
+            return x(d.daysToComplete);
+          })
+          .attr("cy",function(d){
+            return y(d.Planned_Cost_M);
+          })
+          .attr("r",5)
+          .attr("fill",function(d){
+            return color(d.Agency_Name);
+          })
+          .attr("stroke-fill",function(d){
+            return color(d.Agency_Name);
+          })
+          .attr("fill-opacity",0.65)
+          .on("mousemove", mousemove)
+          .on("mouseout", mouseout);;
+}
 
 
 function line(line) {
@@ -115,7 +151,7 @@ function line(line) {
 function startPoint(point){
     point.attr("class","startPoint")
           .attr("cx",function(d){
-            return x((d.Completion_Date - d.Start_Date)/86400000);
+            return x(d.Start_Date);
           })
           .attr("cy",function(d){
             return y(d.Planned_Cost_M);
@@ -130,8 +166,33 @@ function endPoint(point){
             return x(d.Completion_Date);
           })
           .attr("cy",function(d){
-            return y(d.Projected_Actual_Cost_M);
+            return y(d.Planned_Cost_M);
           })
           .attr("r",3)
           .attr("fill","green");
 }
+
+function position() {
+  this.style("left", function(d) { return d.x + "px"; })
+      .style("top", function(d) { return d.y + "px"; })
+      .style("width", function(d) { return Math.max(0, d.dx - 2) + "px"; })
+      .style("height", function(d) { return Math.max(0, d.dy - 2) + "px"; });
+}
+
+var mousemove = function(d) {
+  var xPosition = d3.event.pageX + 5;
+  var yPosition = d3.event.pageY + 5;
+
+  d3.select("#tooltip")
+    .style("left", xPosition + "px")
+    .style("top", yPosition + "px");
+  d3.select("#tooltip #heading")
+    .text(d.Project_Name);
+  d3.select("#tooltip #spend")
+    .text(formatNumber(Math.round(d.Planned_Cost_M * 1000000)));
+  d3.select("#tooltip").classed("hidden", false);
+};
+
+var mouseout = function() {
+  d3.select("#tooltip").classed("hidden", true);
+};
