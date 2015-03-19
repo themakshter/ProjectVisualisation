@@ -1,3 +1,7 @@
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+
 function reSortRoot(root,value_key) {
     for (var key in root) {
         if (key == "key") {
@@ -121,7 +125,9 @@ grandparent.append("text")
 
     var g = g1.selectAll("g")
         .data(d._children)
-      .enter().append("g");
+      .enter().append("g") 
+      .on("mousemove", mousemove)
+      .on("mouseout", mouseout);
 
     g.filter(function(d) { return d._children; })
         .classed("children", true)
@@ -136,8 +142,11 @@ grandparent.append("text")
     g.append("rect")
         .attr("class", "parent")
         .call(rect)
-      .append("title")
-        .text(function(d) { return d.name + " (" + formatNumber(Math.round(d.value)) + "M)"; });
+        .attr("data-toggle","tooltip")
+        .attr("data-placement","top")
+        .attr("title",function(d){
+             return d.name + " (" + formatNumber(Math.round(d.value)) + "M)";
+        });
 
 
 /* Adding a foreign object instead of a text object, allows for text wrapping */
@@ -213,7 +222,7 @@ grandparent.append("text")
         .attr("y", function(d) { return y(d.y); })
         .attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
         .attr("height", function(d) { return y(d.y + d.dy) - y(d.y); })
-        .style("fill", function(d,i) {
+        .style("fill", function(d) {
             return d.parent ? color(d.name) : null;
         })
         .style("fill-opacity",0.875);
@@ -239,10 +248,35 @@ grandparent.append("text")
         })
         .attr("height", function(d) {
             return y(d.y + d.dy) - y(d.y);
-        })
-        ;
+        });
+
 }
 
+function position() {
+  this.style("left", function(d) { return d.x + "px"; })
+      .style("top", function(d) { return d.y + "px"; })
+      .style("width", function(d) { return Math.max(0, d.dx - 2) + "px"; })
+      .style("height", function(d) { return Math.max(0, d.dy - 2) + "px"; });
+}
+
+var mousemove = function(d) {
+  console.log("move");
+  var xPosition = d3.event.pageX + 5;
+  var yPosition = d3.event.pageY + 5;
+
+  d3.select("#tooltip")
+    .style("left", xPosition + "px")
+    .style("top", yPosition + "px");
+  d3.select("#tooltip #heading")
+    .text(d.name);
+  d3.select("#tooltip #spend")
+    .text(formatNumber(Math.round(d.value * multiplier)));
+  d3.select("#tooltip").classed("hidden", false);
+};
+
+var mouseout = function() {
+  d3.select("#tooltip").classed("hidden", true);
+};
 
 function loadData(root) {
     initialize(root);
