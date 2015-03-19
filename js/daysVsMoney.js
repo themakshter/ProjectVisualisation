@@ -82,7 +82,6 @@ svg.append("g")
         .style("text-anchor","middle")
         .attr("transform","translate(" + 20 + " " + height/2+") rotate(-90)");
   
-d3.select("button").on("click", reset);
 
 redraw();
  
@@ -176,11 +175,12 @@ function endPoint(point){
 
 
 var mousemove = function(d) {
- 
    d3.select("#tooltip #heading")
     .text(d.Project_Name);
   d3.select("#tooltip #spend")
-    .text(formatNumber(Math.round(d.Planned_Cost_M * 1000000)));
+    .text("Planned cost is" + formatNumber(Math.round(d.Planned_Cost_M * 1000000)));
+  d3.select("#tooltip #duration")
+    .text("Lasts " +  d.daysToComplete + " days ("+new Date(d.Start_Date).toLocaleDateString() +" to " + new Date(d.Completion_Date).toLocaleDateString()+")");
   d3.select("#tooltip").classed("hidden", false);
 };
 
