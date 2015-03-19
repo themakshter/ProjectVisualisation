@@ -14,11 +14,14 @@ d3.csv("data/ProjectsCW1.csv", function(data) {
     d.Projected_Actual_Project_Completion_Date = parseDate(d.Projected_Actual_Project_Completion_Date);
     d.Planned_Cost_M = +d.Planned_Cost_M;
     d.Projected_Actual_Cost_M = +d.Projected_Actual_Cost_M;
+    d.daysToComplete = (d.Completion_Date - d.Start_Date)/86400000;
   });
 
 x =  d3.scale.linear()
-  .domain([0,
-    (d3.max(d3.extent(data, function(d) { return d.Completion_Date;})) - d3.min(d3.extent(data, function(d) { return d.Start_Date;})))/86400000 ])
+    .domain([0,
+      d3.max(d3.extent(data,function(d){
+        return d.daysToComplete;
+      }))])
     .range([0, width]);
 
 y = d3.scale.linear()
