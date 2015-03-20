@@ -7,69 +7,118 @@
 	<script src="lib/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 </head>
 <body class="container">
-	<h1 class="text-center">COMP6214 Coursework1: Data Visualisation <br/><small>Mohammad Ali Khan (mak1g11)</small> </h1>
+	<h1 class="text-center">
+		COMP6214 Coursework1: Data Visualisation
+		<br/>
+		<small>Mohammad Ali Khan (mak1g11)</small>
+	</h1>
 	<h2>Setup and hosting instructions</h2>
+	<ol>
+		<li>Install <a href="http://nodejs.org/">NodeJS</a></li>
+		<li>Install http-server by running <code>npm install http-server -g</code></li>
+		<li>Run <code>http-server</code> in the command line to run the server in the root of this directory.</li>
+		<li>Go to localhost:(port number it is being hosted at) and this page will appear.</li>
+	</ol>
+
+
 	<h2>Data Cleaning</h2>
-	<p>When cleaning the data, there were numerous errors which were found and cleaned. These can be divided into a number of categories and subcategories. OpenRefine was used for the data cleaning with occasional viewings in Excel. The list below shows the type of errors, the columns affected (where applicable) and the solution.</p>
+	<p>
+		When cleaning the data, there were numerous errors which were found and cleaned. These can be divided into a number of categories and subcategories. OpenRefine was used for the data cleaning with occasional viewings in Excel. The list below shows the type of errors, the columns affected (where applicable) and the solution.
+	</p>
 	<ul>
-	<li>Date Validation</li>
-	<ul>
-		<li>Start Date</li>
-		<li>Completion Date</li>
-		<li>Planned Completion Date</li>
-		<li>Actual Completion Date</li>
-		<li>Combined Updated time</li>
-	</ul>
-	<b>Solution:</b> Each of these dates was selected and a common transform was applied, changing them to a date data type. Combined Updated Time was created from Updated Time and Date to form exact time + date.
-	<li>Multiple Representations</li>
+		<li>Date Validation</li>
+		<ul>
+			<li>Start Date</li>
+			<li>Completion Date</li>
+			<li>Planned Completion Date</li>
+			<li>Actual Completion Date</li>
+			<li>Combined Updated time</li>
+		</ul> <b>Solution:</b>
+		Each of these dates was selected and a common transform was applied, changing them to a date data type. Combined Updated Time was created from Updated Time and Date to form exact time + date.
+		<li>Multiple Representations</li>
 		<ul>
 			<li>Agency Name</li>
 			<li>Agency ID</li>
 			<li>Project Description</li>
+		</ul> <b>Solution:</b>
+		For each of these, a text-facet was applied and the data was grouped together. Different algorithms were checked to test similarity and then converted to the most common name.
+		<li>Summation Records</li>
+		<b>Solution:</b>
+		Each row called 'Total' was starred and removed.
+		<li>Duplicate Records</li>
+		<ul>
+			<li>Duplicate Project ID records</li>
 		</ul>
-	<b>Solution:</b> For each of these, a text-facet was applied and the data was grouped together. Different algorithms were checked to test similarity and then converted to the most common name.
-	<li>Summation Records</li>
-	<b>Solution:</b>Each row called 'Total' was starred and removed.
-	<li>Duplicate Records</li>
-	<ul>
-		<li>Duplicate Project ID records</li>
+		<b>Solution:</b>
+		ProjectID was the column with a uniqe identifier. After performing a text facet, rows with the same were looked at and duplicate records deleted.
+		<li>Mixed use of Numerical scales</li>
+		<ul>
+			<li>Lifecycle Cost</li>
+		</ul>
+		<b>Solution:</b>
+		This was one of the more challenging errors to fix. This value was compared to the Projected Cost and Actual cost and brought as close to them as posisble if it seemed too much. For example, if Project and Actual cost was 5, and the lifecycle cost was 5000,it was assumed that an error is present. Similarly, if the projected cost is 5654 and actual cost is 256454, then it was assumed that 2 was added by an accident. A few more were more ambigious and the best judgement was used.
+		<li>Unorganised Data</li>
+		<b>Solution:</b>
+		Some of rows had an extra column. They were studied to see where the problem was (generally an extra value in Project Name and everything shifted forward). Excel was used to quickly copy the rows to the correct place.
+		<li>Spellling Errors</li>
+		<ul>
+			<li>Agency</li>
+			<li>Project Description</li>
+		</ul>
+		<b>Solution:</b>
+		This was also mostly solved through text facets to the best of knowledge.
 	</ul>
-	<b>Solution:</b> ProjectID was the column with a uniqe identifier. After performing a text facet, rows with the same were looked at and duplicate records deleted.
-	<li>Mixed use of Numerical scales</li>
-	<ul>
-		<li>Lifecycle Cost</li>
-	</ul>
-	<b>Solution:</b> This was one of the more challenging errors to fix. This value was compared to the Projected Cost and Actual cost and brought as close to them as posisble if it seemed too much. For example, if Project and Actual cost was 5, and the lifecycle cost was 5000,it was assumed that an error is present. Similarly, if the projected cost is 5654 and actual cost is 256454, then it was assumed that 2 was added by an accident. A few more were more ambigious and the best judgement was used.
-	<li>Unorganised Data</li>
-	<b>Solution:</b> Some of rows had an extra column. They were studied to see where the problem was (generally an extra value in Project Name and everything shifted forward). Excel was used to quickly copy the rows to the correct place.
-	<li>Spellling Errors</li>
-	<ul>
-		<li>Agency</li>
-		<li>Project Description</li>
-	</ul>
-	<b>Solution:</b>This was also mostly solved through text facets to the best of knowledge.
-</ul>
-<h2>Visualisations</h2>
-<h3><a href="treemap.html">Treemap Visualisation</a></h3>
-<h4>Description</h4>
-<p>The treemap shows how much money is being spent by the different agencies in the US. For each agency, money division over the different investment titles is also shown, which is then showed by each project.</p>
-<h4>Audience</h4>
-<p>The intended audience is the general public who wish to see how their tax dollars are being invested/used. This is quite simple and easy to understand.
-</p>
-<h4>Interaction</h4>
-<p>
-	The colouring of the treemap is done individually for the different values at each level. Therefore, each department is a different colour. Moreover, when a user hovers over a block, the information of it and the money being spent is easily shown, which is helpful especially when the user cannot read the smaller boxes.	
-</p>
-<h3><a href="daysVsMoney.html">Scatter Plot Visualisation</a></h3>
-<h4>Description</h4>
-<p>This visualisation is a scatter plot of the data of the Duration of project (in days) against the projected cost($M) of the project</p>
-<h4>Audience</h4>
-<p>This would be for people who want to see how the cost of the project might co-relate with the amount of money being spent on it. They might also be able to see any weird projects which seem to finish quickly but cost a lot of money and may want to find out more.</p>
-<h4>Interaction</h4>
-<p>The graph has a legend which shows the different agencies to allow the user to distinguish between projects. Moreover, the map is zoomable, which means that more precision can be seen.</p>
-<h3><a href="projectTimeline.html">Timeline Visualisation</a></h3>
-
-<h4>Description</h4>
-<p>This Visualisation was thought of but quickly abandoned as it required lots of work to do. The intention was to show if the project actual cost increaed or not as well as how long the project was. It would be then be easily filtered by agencies etc. but the work was not carried out.</p>
+	<h2>Visualisations</h2>
+	<h3>
+		<a href="treemap.html">Treemap Visualisation</a>
+	</h3>
+	<h4>Description</h4>
+	<p>
+		The treemap shows how much money is being spent by the different agencies in the US. For each agency, money division over the different investment titles is also shown, which is then showed by each project.
+	</p>
+	<h4>Audience</h4>
+	<p>
+		The intended audience is the general public who wish to see how their tax dollars are being invested/used. This is quite simple and easy to understand.
+	</p>
+	<h4>Interaction</h4>
+	<p>
+		The colouring of the treemap is done individually for the different values at each level. Therefore, each department is a different colour. Moreover, when a user hovers over a block, the information of it and the money being spent is easily shown, which is helpful especially when the user cannot read the smaller boxes.
+	</p>
+	<h3>
+		<a href="daysVsMoney.html">Scatter Plot Visualisation</a>
+	</h3>
+	<h4>Description</h4>
+	<p>
+		This visualisation is a scatter plot of the data of the Duration of project (in days) against the projected cost($M) of the project
+	</p>
+	<h4>Audience</h4>
+	<p>
+		This would be for people who want to see how the cost of the project might co-relate with the amount of money being spent on it. They might also be able to see any weird projects which seem to finish quickly but cost a lot of money and may want to find out more.
+	</p>
+	<h4>Interaction</h4>
+	<p>
+		The graph has a legend which shows the different agencies to allow the user to distinguish between projects. Moreover, the map is zoomable, which means that more precision can be seen.
+	</p>
+	<h3>
+		<a href="projectTimeline.html">Timeline Visualisation</a>
+	</h3>
+	<h4>Description</h4>
+	<p>
+		This Visualisation was thought of but quickly abandoned as it required lots of work to do. The intention was to show if the project actual cost increaed or not as well as how long the project was. It would be then be easily filtered by agencies etc. but the work was not carried out.
+	</p>
+	<h2>Credits</h2>
+	<p>
+		Numerous d3 examples were used, notably the
+		<a href="http://bost.ocks.org/mike/treemap/">Zoomable Treemap</a>
+		,
+		<a href="http://bl.ocks.org/davetaz/9954190">CSV treemap</a>
+		,
+		<a href="http://bl.ocks.org/tgk/6044254">Treemap tooltip</a>
+		,
+		<a href="http://bl.ocks.org/mbostock/3892928">Zoom/Pan into graph into graph</a>
+		and
+		<a href="http://bl.ocks.org/weiglemc/6185069">Scatter plot with legend</a>
+		.
 </body>
+	</p>
 </html>

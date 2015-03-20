@@ -6,4 +6,4 @@ This can be currently found at [my github pages](http://themakshter.me/ProjectVi
 1. Install [Node.js](http://nodejs.org/).
 2. Install http-server by running `npm install http-server -g`
 3. Run `http-server` in the command line to run the server in the root of this directory.
-
+4. Go to localhost:(port number it is being hosted at) and the index page should appear
