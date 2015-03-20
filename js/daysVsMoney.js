@@ -87,9 +87,8 @@ svg.append("g")
 // draw legend
   legend = svg.append("g")
       .data(color.domain())
-    .enter();
-
-  legend.append("g")
+      .enter()
+      .append("g")
       .attr("class", "legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
@@ -108,7 +107,6 @@ svg.append("g")
       .style("text-anchor", "end")
       .text(function(d) { return d;});
 
-console.log(legend);
 redraw();
  
 
@@ -131,7 +129,7 @@ function reset() {
 
 
 function redraw(){
-  svg.selectAll(".startPoint").remove();
+  svg.selectAll(".point").remove();
   
   // Add the points!
   svg.selectAll(".point")
@@ -145,7 +143,7 @@ function redraw(){
 
 
 function point(point){
-  point.attr("class","startPoint")
+  point.attr("class","point")
           .attr("cx",function(d){
             return x(d.daysToComplete+30);
           })
