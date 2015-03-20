@@ -2,11 +2,11 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
+var padding = 250;
 var x,y,xAxis,yAxis,zoom,svg;
 var color = d3.scale.category20();
 var parseDate = d3.time.format.iso.parse;
 var cValue = function(d) { return d.Agency_Name;};
-var legend;
 var formatNumber = d3.format("$,");
 d3.csv("data/ProjectsCW1.csv", function(data) {
   // Coerce the strings to numbers.
@@ -47,8 +47,8 @@ zoom = d3.behavior.zoom()
     .on("zoom", zoomed);
 
 svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width +padding + margin.left + margin.right)
+    .attr("height", height+padding + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .call(zoom);
@@ -87,27 +87,26 @@ svg.append("g")
 redraw();
 
 // draw legend
-  legend = svg.append("g")
+  var legend = svg.selectAll(".legend")
       .data(color.domain())
-      .enter()
-      .append("g")
+    .enter().append("g")
       .attr("class", "legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
   // draw legend colored rectangles
   legend.append("rect")
-      .attr("x", width - 18)
+      .attr("x", width+padding - 18)
       .attr("width", 18)
       .attr("height", 18)
       .style("fill", color);
 
   // draw legend text
   legend.append("text")
-      .attr("x", width - 24)
+      .attr("x", width+padding - 24)
       .attr("y", 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
-      .text(function(d) { return d;});
+      .text(function(d) { return d;})
 
 
  
