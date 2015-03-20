@@ -1,8 +1,7 @@
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
-
-var padding = 250;
+var legendWidth = 250;
 var x,y,xAxis,yAxis,zoom,svg;
 var color = d3.scale.category20();
 var parseDate = d3.time.format.iso.parse;
@@ -46,9 +45,9 @@ zoom = d3.behavior.zoom()
     .scaleExtent([1, 10])
     .on("zoom", zoomed);
 
-svg = d3.select("body").append("svg")
-    .attr("width", width +padding + margin.left + margin.right)
-    .attr("height", height+padding + margin.top + margin.bottom)
+svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .call(zoom);
@@ -56,8 +55,9 @@ svg = d3.select("body").append("svg")
 
 
 svg.append("rect")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", width+10)
+    .attr("height", height+10)
+    .attr("class","graph-rect");
 
 svg.append("g")
     .attr("class", "x axis")
@@ -87,7 +87,11 @@ svg.append("g")
 redraw();
 
 // draw legend
-  var legend = svg.selectAll(".legend")
+  var legend =  d3.select("#legend").append("svg")
+    .attr("class","legend-svg")
+    .attr("width", legendWidth + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .selectAll(".legend")
       .data(color.domain())
     .enter().append("g")
       .attr("class", "legend")
@@ -95,14 +99,14 @@ redraw();
 
   // draw legend colored rectangles
   legend.append("rect")
-      .attr("x", width+padding - 18)
+      .attr("x", legendWidth - 18)
       .attr("width", 18)
       .attr("height", 18)
       .style("fill", color);
 
   // draw legend text
   legend.append("text")
-      .attr("x", width+padding - 24)
+      .attr("x", legendWidth - 24)
       .attr("y", 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
@@ -161,6 +165,7 @@ function point(point){
           .attr("fill-opacity",0.65)
           .on("click", mousemove)
           ;
+        
 }
 
 
