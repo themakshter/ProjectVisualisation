@@ -84,6 +84,8 @@ svg.append("g")
         .style("text-anchor","middle")
         .attr("transform","translate(" + 20 + " " + height/2+") rotate(-90)");
   
+redraw();
+
 // draw legend
   legend = svg.append("g")
       .data(color.domain())
@@ -107,7 +109,7 @@ svg.append("g")
       .style("text-anchor", "end")
       .text(function(d) { return d;});
 
-redraw();
+
  
 
 function zoomed() {
